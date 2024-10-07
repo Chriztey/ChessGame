@@ -59,4 +59,29 @@ class PawnTest {
 
     }
 
+    @Test
+    fun secondFirstMoveForwardTrue() {
+        val pawn = Pawn(
+            color = Piece.Color.White,
+            position = IntOffset(
+                x = 'A'.code,
+                y = 2
+            )
+        )
+
+        val moves = pawn.getAvailableMoves(listOf(pawn)).toList()
+
+        assertEquals(2, moves.size)
+
+        assertTrue (moves.isNotEmpty())
+        assertEquals(
+            IntOffset(
+                x = 'A'.code,
+                y = 4
+            ),
+            moves[1]
+        )
+
+    }
+
 }
