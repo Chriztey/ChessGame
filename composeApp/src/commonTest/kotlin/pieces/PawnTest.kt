@@ -74,14 +74,69 @@ class PawnTest {
         assertEquals(2, moves.size)
 
         assertTrue (moves.isNotEmpty())
-        assertEquals(
+
+        assertTrue(
+            IntOffset(
+                x = 'A'.code,
+                y = 3
+            ) in moves
+        )
+
+        assertTrue(
             IntOffset(
                 x = 'A'.code,
                 y = 4
-            ),
-            moves[1]
+            ) in moves
         )
 
+    }
+
+    @Test
+    fun secondFirstMoveForwardFalse() {
+        val pawn = Pawn(
+            color = Piece.Color.White,
+            position = IntOffset(
+                x = 'A'.code,
+                y = 3
+            )
+        )
+
+        val moves = pawn.getAvailableMoves(listOf(pawn)).toList()
+
+        assertEquals(1, moves.size)
+
+        assertTrue (moves.isNotEmpty())
+        assertTrue(
+            IntOffset(
+                x = 'A'.code,
+                y = 4
+            ) in moves
+        )
+    }
+
+    @Test
+    fun testNoPossibleMoves() {
+        val pawn = Pawn(
+            color = Piece.Color.White,
+            position = IntOffset(
+                x = 'A'.code,
+                y = 3
+            )
+        )
+
+        demoBlackPiece.position = IntOffset(
+            x = 'A'.code,
+            y = 4
+        )
+
+        val pieces = listOf(
+            pawn,
+            demoBlackPiece
+        )
+
+        val moves = pawn.getAvailableMoves(pieces)
+
+        assertTrue (moves.isEmpty())
     }
 
 }

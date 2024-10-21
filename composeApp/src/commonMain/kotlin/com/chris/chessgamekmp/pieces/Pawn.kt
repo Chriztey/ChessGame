@@ -10,7 +10,7 @@ import org.jetbrains.compose.resources.DrawableResource
 
 class Pawn(
     override val color: Piece.Color,
-    override val position: IntOffset
+    override var position: IntOffset
 ) : Piece {
     override val drawable: DrawableResource =
         if (color.isWhite) Res.drawable.pawn_white else
@@ -26,6 +26,7 @@ class Pawn(
             pieces = pieces,
             movement = if (color.isWhite) StraightMovement.Up else StraightMovement.Down,
             maxMovement = if (isFirstMove) 2 else 1,
+            canCapture = false
         )
     }
 }

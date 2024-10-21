@@ -22,7 +22,7 @@ interface Piece {
     }
 
     val drawable: DrawableResource
-    val position: IntOffset
+    var position: IntOffset
 
     fun getAvailableMoves(pieces : List<Piece>): Set<IntOffset>
 

@@ -13,7 +13,8 @@ enum class StraightMovement {
 fun Piece.getStraightMoves(
     pieces: List<Piece>,
     movement: StraightMovement,
-    maxMovement: Int = 7
+    maxMovement: Int = 7,
+    canCapture: Boolean = true
 ) : Set<IntOffset> {
     return getMoves(
         pieces = pieces,
@@ -44,14 +45,16 @@ fun Piece.getStraightMoves(
                     )
             }
         },
-        maxMovement = maxMovement
+        maxMovement = maxMovement,
+        canCapture = canCapture
     )
 }
 
 fun Piece.getMoves(
     pieces: List<Piece>,
     getPosition: (Int) -> IntOffset,
-    maxMovement: Int = 7
+    maxMovement: Int,
+    canCapture: Boolean = true
 ) : Set<IntOffset> {
 
     val moves = mutableSetOf<IntOffset>()
@@ -62,7 +65,7 @@ fun Piece.getMoves(
         val targetPiece = pieces.find { it.position == targetPosition }
 
         if (targetPiece != null) {
-            if (targetPiece.color != this.color) {
+            if (targetPiece.color != this.color && canCapture) {
                 moves.add(targetPosition)
             }
             break
