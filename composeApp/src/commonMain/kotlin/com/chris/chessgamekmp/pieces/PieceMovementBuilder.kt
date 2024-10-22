@@ -61,7 +61,7 @@ class PieceMovementBuilder(
         canCapture: Boolean = true,
         captureOnly: Boolean = false
     ) {
-        DiagonalMovement.entries.forEach { movement -> 
+        DiagonalMovement.entries.forEach { movement ->
             diagonalMoves(
                 movement = movement,
                 maxMovement = maxMovement,
