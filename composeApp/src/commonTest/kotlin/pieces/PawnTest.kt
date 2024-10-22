@@ -7,6 +7,7 @@ import com.chris.chessgame.pieces.Pawn
 import com.chris.chessgame.pieces.Piece
 import com.chris.chessgame.pieces.getMoves
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -34,6 +35,8 @@ class PawnTest {
                 y = BoardYCoordinates.first()
             )
         )
+
+    // Forward Moves
 
 
     @Test
@@ -137,6 +140,67 @@ class PawnTest {
         val moves = pawn.getAvailableMoves(pieces)
 
         assertTrue (moves.isEmpty())
+    }
+
+    // Diagonal Moves
+
+    @Test
+    fun testCaptureEnemy() {
+
+        val pawn = Pawn(
+            color = Piece.Color.White,
+            position = IntOffset(
+                x = 'A'.code,
+                y = 3
+            )
+        )
+
+        demoBlackPiece.position = IntOffset(
+            x = 'B'.code,
+            y = 4
+        )
+
+        val pieces = listOf(
+            pawn,
+            demoBlackPiece
+        )
+
+        val moves = pawn.getAvailableMoves(pieces)
+
+        assertContains(
+            moves,
+            demoBlackPiece.position
+        )
+
+    }
+
+    @Test
+    fun testSecondMoveForwardTrue() {
+        val pawn = Pawn(
+            color = Piece.Color.White,
+            position = IntOffset(
+                x = 'A'.code,
+                y = 2
+            )
+        )
+
+        val moves = pawn.getAvailableMoves(listOf(pawn))
+
+        assertEquals(2, moves.size)
+
+        assertTrue {
+            IntOffset(
+                x = 'A'.code,
+                y = 3
+            ) in moves
+        }
+
+        assertTrue {
+            IntOffset(
+                x = 'A'.code,
+                y = 4
+            ) in moves
+        }
     }
 
 }
