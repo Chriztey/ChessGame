@@ -2,6 +2,7 @@ package com.chris.chessgamekmp.pieces
 
 import androidx.compose.ui.unit.IntOffset
 import com.chris.chessgame.pieces.Piece
+import com.chris.chessgame.pieces.getLMoves
 
 fun Piece.getPieceMoves(
 
@@ -84,6 +85,14 @@ class PieceMovementBuilder(
                 maxMovement = maxMovement,
                 canCapture = canCapture,
                 captureOnly = captureOnly
+            )
+        )
+    }
+
+    fun getLMoves() {
+        moves.addAll(
+            piece.getLMoves(
+                pieces
             )
         )
     }

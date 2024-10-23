@@ -42,3 +42,35 @@ fun Piece.getMoves(
     return moves
 
 }
+
+fun Piece.getLMoves(
+    pieces: List<Piece>
+) : Set<IntOffset> {
+    val moves = mutableSetOf<IntOffset>()
+
+    val offsets = listOf (
+        IntOffset(-1,-2),
+        IntOffset(1,-2),
+        IntOffset(-2,-1),
+        IntOffset(2,-1),
+        IntOffset(-2,1),
+        IntOffset(2,1),
+        IntOffset(-1,2),
+        IntOffset(1,2)
+    )
+
+    for (offset in offsets) {
+        val targetPosition = position + offset
+
+        if (targetPosition.x !in BoardXCoordinates || targetPosition.y !in BoardYCoordinates)
+            continue
+
+        val targetPiece = pieces.find { it.position == targetPosition }
+        if (targetPiece == null || targetPiece.color != this.color) {
+            moves.add(targetPosition)
+        }
+
+    }
+
+    return moves
+}
